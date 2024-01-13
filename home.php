@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@ VALUES ('$task', false, '1')";
     ?>
 
     <?php
-    $sql = "SELECT task, completed FROM todo";
+    $sql = "SELECT id, task, completed FROM todo";
     $result = $conn->query($sql);
     ?>
 
@@ -38,15 +39,29 @@ VALUES ('$task', false, '1')";
         if ($result->num_rows > 0) {
             // output data of each row
             while ($row = $result->fetch_assoc()) {
-                echo "<li>{$row['task']}</li>";
-            }
-        }
+                $id = $row['id'];
+                echo "<li class='task'>";
+                echo "<span class='text'>{$row['task']}</span>";
         ?>
+                <button class="editBtn">Edit</button>
+
+                <form class="hide" action="edit.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="text" name="todo" id="todo" value="<?php echo $row['task'] ?>" placeholder="Task">
+                    <input type="submit" name="editContent" value="Edit">
+                </form>
+        <?php
+                echo "<a href='delete.php?id=$id'>Delete</a>";
+                echo "</li>";
+            }
+        };
+        ?>
+
     </ul>
     <?php
     $conn->close();
     ?>
-    <script src="app.js"></script>
+    <script src="javascript/app.js"></script>
 </body>
 
 </html>
