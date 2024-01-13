@@ -15,9 +15,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
         // collect value of input field
         $task = $_POST['todo'];
+        $userId = $_SESSION["id"];
         if (!empty($task)) {
             $sql = "INSERT INTO todo (task, completed, user_id)
-VALUES ('$task', false, '1')";
+VALUES ('$task', false, '$userId')";
             if (!$conn->query($sql)) {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -26,7 +27,8 @@ VALUES ('$task', false, '1')";
     ?>
 
     <?php
-    $sql = "SELECT id, task, completed FROM todo";
+    $userId = $_SESSION["id"];
+    $sql = "SELECT id, task, completed FROM todo WHERE user_id = '$userId'";
     $result = $conn->query($sql);
     ?>
 

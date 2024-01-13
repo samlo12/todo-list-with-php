@@ -1,7 +1,9 @@
+
 <?php
+require_once "config.php";
 $servername = "localhost";
 $username = "root";
-$password = "51606511";
+$password = "$mysqlPassword";
 $dbname = "todo";
 
 // Create connection

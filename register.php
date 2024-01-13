@@ -1,21 +1,24 @@
 <?php
 require_once "database.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
-    // collect value of input field
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     if (!empty($username) && !empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO user (username, password)
 VALUES ('$username', '$hashed_password')";
-        if (!$conn->query($sql)) {
+        if (!$result = $conn->query($sql)) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         } else {
+            require_once "utils/loginFunction.php";
+            login($conn->insert_id);
             header("Location: /todo-list/home.php");
             die();
         }
     }
 }
+
 
 
 ?>
