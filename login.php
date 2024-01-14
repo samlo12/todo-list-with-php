@@ -29,12 +29,15 @@ $conn->close();
 
 <?php require_once "./boilerplate/header.php" ?>
 
-<form action="login.php" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" autofocus>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password">
-    <input type="submit" name="login" value="Login">
-</form>
-
+<div class="container w-50">
+    <div class="card p-3">
+        <form action="login.php" method="POST">
+            <label for="username" class="form-label">Username</label>
+            <input class="form-control mb-2" type="text" name="username" id="username" autofocus>
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control mb-2" type="password" name="password" id="password">
+            <input class="btn btn-primary" type="submit" name="login" value="Login">
+        </form>
+    </div>
+</div>
 <?php require_once "./boilerplate/footer.php" ?>

@@ -19,17 +19,28 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav w-100">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/todo-list/login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/todo-list/logout.php">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/todo-list/register.php">Register</a>
-                    </li>
                     <?php
                     session_start();
+                    if (!isset($_SESSION['id'])) {
+                        echo "
+                        <li class='nav-item ms-auto'>
+                            <a class='nav-link' href='/todo-list/login.php'>Login</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='/todo-list/register.php'>Register</a>
+                        </li>
+                        ";
+                    } else {
+                        echo "
+                            <li class='nav-item ms-auto'>
+                                <a class='nav-link' href='/todo-list/logout.php'>Logout</a>
+                            </li>
+                        ";
+                    }
+                    ?>
+
+                    <?php
+
                     if (isset($_SESSION['id'])) {
                         require "database.php";
                         $userId = $_SESSION["id"];
@@ -39,7 +50,7 @@
                         while ($row = $result->fetch_assoc()) {
                             $username = $row['username'];
                             echo "
-                            <li class='nav-item nav-link ms-auto'>
+                            <li class='nav-item nav-link'>
                                 $username
                             </li>
                             ";
