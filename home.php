@@ -9,7 +9,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 <div>
     <?php
-    require_once "database.php";
+    require "database.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create'])) {
         // collect value of input field
         $task = $_POST['todo'];

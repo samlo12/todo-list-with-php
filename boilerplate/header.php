@@ -31,7 +31,7 @@
                     <?php
                     session_start();
                     if (isset($_SESSION['id'])) {
-                        require_once "database.php";
+                        require "database.php";
                         $userId = $_SESSION["id"];
                         $sql = "SELECT username FROM user WHERE id = '$userId'";
                         $result = $conn->query($sql);
@@ -44,6 +44,7 @@
                             </li>
                             ";
                         }
+                        $conn->close();
                     }
                     ?>
                 </ul>
