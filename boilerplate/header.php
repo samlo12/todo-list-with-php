@@ -18,7 +18,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav w-100">
                     <li class="nav-item">
                         <a class="nav-link" href="/todo-list/login.php">Login</a>
                     </li>
@@ -28,6 +28,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/todo-list/register.php">Register</a>
                     </li>
+                    <?php
+                    session_start();
+                    if (isset($_SESSION['id'])) {
+                        require_once "database.php";
+                        $userId = $_SESSION["id"];
+                        $sql = "SELECT username FROM user WHERE id = '$userId'";
+                        $result = $conn->query($sql);
+
+                        while ($row = $result->fetch_assoc()) {
+                            $username = $row['username'];
+                            echo "
+                            <li class='nav-item nav-link ms-auto'>
+                                $username
+                            </li>
+                            ";
+                        }
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
